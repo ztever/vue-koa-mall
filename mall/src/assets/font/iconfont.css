@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "iconfont";
+  src: url('iconfont.woff?t=1585097286122') format('woff');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-message:before {
+  content: "\e6bc";
+}
+
+.icon-left:before {
+  content: "\e614";
+}
+
+.icon-cc-cart:before {
+  content: "\e61d";
+}
+
+.icon-custom-my:before {
+  content: "\e608";
+}
+
+.icon-close:before {
+  content: "\e61f";
+}
+
+.icon-left1:before {
+  content: "\e626";
+}
+
+.icon-close1:before {
+  content: "\e62b";
+}
+
+.icon-password:before {
+  content: "\e675";
+}
+
+.icon-left2:before {
+  content: "\e943";
+}
+
+.icon-Settingscontroloptions:before {
+  content: "\e9cb";
+}
+
+.icon-left3:before {
+  content: "\e606";
+}
+
+.icon-home:before {
+  content: "\e605";
+}
+
+.icon-search:before {
+  content: "\e60f";
+}

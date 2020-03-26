@@ -1,0 +1,100 @@
+header {
+  background: $linear-black;
+  width: 100%;
+  color: $white;
+  @include ios-padding-top;
+  &.transparent {
+    background: transparent !important;
+  }
+  &.flow-layout {
+    position: fixed;
+    z-index: 98;
+    top: 0;
+    left: 0;
+  }
+  &.back-white {
+    background: #fff;
+    color: rgb(38, 38, 38);
+  }
+  .header-fixed {
+    left: 0;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &.border {
+      @include border-bottom;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      flex: 1;
+      height: 44px;
+    }
+    .slot {
+      @include flex-center;
+      padding: 0 16px;
+      text-align: center;
+      min-height: 44px;
+      &.slot-mid {
+        h1 {
+          font-family: $font-heavy !important;
+          font-size: 15px;
+        }
+      }
+      &.slot-left {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        img {
+          display: block;
+          width: 20px;
+          height: 20px;
+        }
+      }
+      &.slot-right {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        @include ios-tap-color;
+        img {
+          display: block;
+          width: 20px;
+          height: 20px;
+        }
+        .coin-num {
+          @include flex-center;
+          color: $black;
+          img {
+            margin-right: 3px;
+            width: 16px;
+            height: 16px;
+          }
+          span {
+            color: $white;
+            font-family: $font-medium;
+            font-size: 12px;
+            line-height: 12px;
+          }
+        }
+      }
+    }
+  }
+  .icon-app_back,
+  .icon-app_expend_s {
+    transform: rotate(180deg);
+    font-size: 24px;
+  }
+
+  .icon-app_close {
+    font-size: 24px;
+  }
+}

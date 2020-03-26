@@ -75,8 +75,6 @@ export default class App extends Vue {
         transY = 0;
         transX = 0;
       }
-      // console.log("direction", direction);
-      // console.log("speedX", speedX, speedY, scaleS);
 
       const animateScale = () => {
         transX -= speedX;
@@ -106,6 +104,7 @@ export default class App extends Vue {
       animateScale();
     }
   }
+
   private enter(el: any, done: any) {
     if (this.flipName === "flipEnter") {
       const Invert = this.getInvert(el);
@@ -130,16 +129,15 @@ export default class App extends Vue {
       deltaW: this.firstRect.height / lastReact.height
     };
   }
+
   private leave(el: any, done: any) {
     el.style.cssText = "position:absolute;z-index:-1";
-
     if (this.flipName === "flipLeave") {
       el.style.cssText = "position:absolute;z-index:1";
       const Invert = this.getInvert(el);
       this.animateFn(el, Invert, "reverse", this.speed, done);
     } else {
       setTimeout(() => {
-        el.style.cssText = "";
         done();
       }, this.speed + 100);
     }
@@ -248,5 +246,5 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/styles/base.scss";
 </style>

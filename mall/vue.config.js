@@ -1,4 +1,8 @@
 const path = require("path");
+
+function resolve(dir) {
+  return path.resolve(__dirname, dir);
+}
 module.exports = {
   /* webpack-dev-server 相关配置 */
   devServer: {
@@ -6,18 +10,38 @@ module.exports = {
     open: true,
     /* 设置为0.0.0.0则所有的地址均能访问 */
     // host: "0.0.0.0",
-    port: 8066,
-    https: false,
-    hotOnly: false
+    // port: 8066,
+    // https: false,
+    // hotOnly: false
     /* 使用代理 */
-    // proxy: {
-    //   "/api": {
-    //     /* 目标代理服务器地址 */
-    //     target: "http://47.100.47.3/",
-    //     /* 允许跨域 */
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      "/api": {
+        /* 目标代理服务器地址 */
+        target: "http://127.0.0.1:3005",
+        /* 允许跨域 */
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "http://127.0.0.1:3005" //路径重写
+        }
+      }
+    }
+  },
+  css: {
+    loaderOptions: {
+      // 给 sass-loader 传递选项
+      sass: {
+        // @/ 是 src/ 的别名
+        // 所以这里假设你有 `src/variables.scss` 这个文件
+        prependData: `
+                  @import "@/styles/_mixins.scss";
+
+        `
+      }
+    }
+  },
+  lintOnSave: true,
+  chainWebpack: config => {
+    config.resolve.alias.set("@", resolve("src"));
   }
   // configureWebpack: config => {
   //   Object.assign(config, {
