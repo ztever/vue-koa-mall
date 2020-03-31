@@ -75,7 +75,7 @@ router.post("/registerUser", async (ctx, next) => {
     if (user && user[0]) {
       ctx.body = { code: 10001, data: null, message: "用户已存在" };
     } else {
-      const sql = `INSERT INTO user_info (user_name, telephone,password,icon) VALUES('${user_name}','${telephone}','${hashPwd}','${icon}')`;
+      const sql = `INSERT INTO user_info (user_name, telephone,password,icon) VALUES ('${user_name}','${telephone}','${hashPwd}','${icon}')`;
       const result = await db(sql);
       if (result) {
         ctx.body = { code: 200, data: true, message: "注册成功" };

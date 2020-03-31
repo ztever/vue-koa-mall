@@ -19,7 +19,6 @@ const initVue = () => {
 
 const init = async () => {
   await (store as any).restored;
-  console.log("store", store);
   initVue();
 };
 init();

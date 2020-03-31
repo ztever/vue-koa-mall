@@ -9,19 +9,27 @@ export default {
   async [USER_LOGIN_ACTION]({ commit }: any, payLoad: any) {
     try {
       const result = await user_login(payLoad);
-      commit(UPDATE_USER_TOKEN, result);
+      await commit(UPDATE_USER_TOKEN, result);
+      // 登录成功跳转到home页
+      router.replace({
+        name: "home",
+        query: {
+          routerTransition: "forward"
+        }
+      });
     } catch (error) {
       return Promise.reject(error);
     }
   },
-  async [REGISTER_USER]({ commit }: any, payLoad: any) {
+  // eslint-disable-next-line
+  async [REGISTER_USER]({}: any, payLoad: any) {
     try {
       await user_register(payLoad);
       //注册成功，跳转到登录页面
       router.replace({
         name: "login",
         query: {
-          routerTransition: "forward"
+          routerTransition: "up"
         }
       });
     } catch (error) {

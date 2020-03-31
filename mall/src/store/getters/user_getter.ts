@@ -1,9 +1,10 @@
-// eslint-disable-next-line
 import { GetterTree } from "vuex";
+import { GETTER_TOKEN } from "@/store/constants/user";
+
 // import * as types from "@/store/constants/index_types";
 const Getters: GetterTree<any, any> = {
-  // [types.GETTER_MASTER_USER_ID](state) {
-  //   return state.master_user_id;
-  // },
+  [GETTER_TOKEN](state) {
+    return state.token;
+  }
 };
 export default Getters;

@@ -41,19 +41,29 @@ module.exports = {
   },
   lintOnSave: true,
   chainWebpack: config => {
-    config.resolve.alias.set("@", resolve("src"));
+    // config.resolve.alias.set("@", resolve("src"));
+  },
+  configureWebpack: config => {
+    // Object.assign(config, {
+    //   // 开发生产共同配置
+    //   resolve: {
+    //     extensions: [".js", ".vue", ".json"] //文件优先解析后缀名顺序
+    //     // alias: {
+    //     //   "@": path.resolve(__dirname, "./src")
+    //     // }, // 别名配置
+    //     // plugins: []
+    //   }
+    //   // optimization: optimization2
+    // });
+    // config.resolve = {
+    //   // 配置解析别名
+    //   // extensions: [".js", ".json", ".vue", ".ts"],
+    //   alias: {
+    //     "@": path.resolve(__dirname, "./src"),
+    //     // 'components': path.resolve(__dirname, './src/components'),
+    //     store: path.resolve(__dirname, "./src/store"),
+    //     api: path.resolve(__dirname, "./src/api")
+    //   }
+    // };
   }
-  // configureWebpack: config => {
-  //   Object.assign(config, {
-  //     // 开发生产共同配置
-  //     resolve: {
-  //       extensions: [".js", ".vue", ".json"] //文件优先解析后缀名顺序
-  //       // alias: {
-  //       //   "@": path.resolve(__dirname, "./src")
-  //       // }, // 别名配置
-  //       // plugins: []
-  //     }
-  //     // optimization: optimization2
-  //   });
-  // }
 };

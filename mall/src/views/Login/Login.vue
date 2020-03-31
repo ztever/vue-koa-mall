@@ -64,7 +64,7 @@ export default class Login extends Vue {
     this.$router.push({
       name: "registeruser",
       query: {
-        routerTransition: "forward"
+        routerTransition: "up"
       }
     });
   }

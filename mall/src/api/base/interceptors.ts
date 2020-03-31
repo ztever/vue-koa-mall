@@ -1,11 +1,12 @@
-// import WebLocalStorage from "utils/sessionStorage/web_storage";
 import { Toast } from "vant";
+import { store } from "@/main";
+import { GETTER_TOKEN } from "@/store/constants/user";
 const handleRequest = (config: any) => {
   // 如果有token，带上token
-  // const token = WebLocalStorage.get("token");
-  // if (token) {
-  //   config.headers["token"] = token;
-  // }
+  const token = store.getters[GETTER_TOKEN];
+  if (token) {
+    config.headers["token"] = token;
+  }
   return config;
 };
 
