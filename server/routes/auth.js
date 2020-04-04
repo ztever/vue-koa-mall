@@ -9,6 +9,8 @@ const router = require("koa-router")();
 const db = require("../helper/db");
 const crypto = require("crypto");
 const { createToken } = require("../helper/token");
+const { tokenCheck } = require("../helper/token");
+
 /**
  * 获取密码的hash值
  * @param  pwd
@@ -25,7 +27,7 @@ const getHashPwd = pwd => {
  */
 const findUser = async (user_name, telephone, password) => {
   try {
-    const sql = `SELECT id,nick_name from user_info WHERE (user_name = '${user_name}' or telephone = '${telephone}') AND password = '${password}'`;
+    const sql = `SELECT id,nick_name,icon from user_info WHERE (user_name = '${user_name}' or telephone = '${telephone}') AND password = '${password}'`;
     const result = await db(sql);
     return result;
   } catch (error) {
@@ -51,7 +53,8 @@ router.post("/login", async (ctx, next) => {
         data: {
           token,
           user_name,
-          nick_name: item.nick_name
+          nick_name: item.nick_name,
+          icon: item.icon
         },
         message: ""
       };
@@ -85,6 +88,22 @@ router.post("/registerUser", async (ctx, next) => {
     }
   } catch (error) {
     ctx.body = { code: 10002, data: null, message: "注册失败" };
+  }
+});
+
+/**
+ * 修改用户信息
+ */
+router.put("/updateUser", async (ctx, next) => {
+  try {
+    const token = await tokenCheck(ctx);
+    const { nick_name, icon } = ctx.request.body;
+
+    const upSql = `UPDATE user_info SET nick_name = '${nick_name}',icon = '${icon}' WHERE id = '${token.id}'`;
+    await db(upSql);
+    ctx.body = { code: 200, data: null, message: "更新成功" };
+  } catch (err) {
+    ctx.body = { code: 400, data: null, message: "更新失败" };
   }
 });
 

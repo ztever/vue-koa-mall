@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { fixedIOS } from "./fixedIOS";
+
 @Component({
   components: {}
 })
@@ -57,11 +57,11 @@ export default class Scroller extends Vue {
   @Prop({ default: "You've reached the end" })
   private endedText?: string;
   @Prop({
-    default: require("@/assets/icons-file/gif/loading_3.gif")
+    default: require("@/assets/icons/scroll/loading_3.gif")
   })
   private lodingIcon?: string;
   @Prop({
-    default: require("@/assets/icons-file/common/right-icon.png")
+    default: require("@/assets/icons/scroll/right-icon.png")
   })
   private refreshIcon?: string;
 
@@ -165,7 +165,6 @@ export default class Scroller extends Vue {
       this.container = this.$refs.scrollontainer;
       this.containerHeight = this.container.offsetHeight;
     });
-    fixedIOS();
   }
 }
 </script>

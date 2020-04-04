@@ -46,7 +46,16 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class Splash extends Vue {
-  //
+  private mounted() {
+    setTimeout(() => {
+      this.$router.replace({
+        name: "main",
+        query: {
+          routerTransition: "forward"
+        }
+      });
+    }, 200);
+  }
 }
 </script>
 

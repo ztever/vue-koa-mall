@@ -5,8 +5,11 @@ import getters from "../getters/user_getter";
 export default {
   state: {
     token: "",
-    user_name: "",
-    nick_name: ""
+    user_info: {
+      user_name: "",
+      nick_name: "",
+      icon: ""
+    }
   },
   actions,
   mutations,

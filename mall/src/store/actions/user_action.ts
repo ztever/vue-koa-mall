@@ -1,18 +1,21 @@
 import {
   USER_LOGIN_ACTION,
-  UPDATE_USER_TOKEN,
-  REGISTER_USER
+  UPDATE_USER_INFO,
+  REGISTER_USER,
+  PUT_USER_INFO,
+  UPDATE_TOKEN
 } from "../constants/user";
-import { user_login, user_register } from "@/api/auth/index";
+import { user_login, user_register, update_user } from "@/api/auth/index";
 import { router } from "@/main";
 export default {
   async [USER_LOGIN_ACTION]({ commit }: any, payLoad: any) {
     try {
-      const result = await user_login(payLoad);
-      await commit(UPDATE_USER_TOKEN, result);
+      const result: any = await user_login(payLoad);
+      await commit(UPDATE_TOKEN, result.token);
+      await commit(UPDATE_USER_INFO, result);
       // 登录成功跳转到home页
       router.replace({
-        name: "home",
+        name: "main",
         query: {
           routerTransition: "forward"
         }
@@ -32,6 +35,14 @@ export default {
           routerTransition: "up"
         }
       });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async [PUT_USER_INFO]({ commit }: any, payLoad: any) {
+    try {
+      await update_user(payLoad);
+      await commit(UPDATE_USER_INFO, payLoad);
     } catch (error) {
       return Promise.reject(error);
     }

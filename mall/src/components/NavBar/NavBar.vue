@@ -11,12 +11,7 @@
         <!-- Left -->
         <div href="javascript:;" class="slot-left slot" @click="clickLeft">
           <slot v-if="!leftType" name="left"></slot>
-          <i v-else-if="leftType === 'close'" class="icon-app_close_white"></i>
-          <i v-else-if="leftType === 'back'" class="icon-app_back"></i>
-          <i
-            v-else-if="leftType === 'back-white'"
-            class="icon-app_expend_s"
-          ></i>
+          <Icon :name="leftIconName" :class="leftType" />
         </div>
         <!-- Mid -->
         <div class="slot-mid slot" @click="clickMid">
@@ -25,11 +20,7 @@
         </div>
         <!-- Right -->
         <div href="javascript:;" class="slot-right slot" @click="clickRight">
-          <div v-if="showCoin" class="coin-num">
-            <img src="@/assets/icons-file/sku/coins.png" />
-            <span>{{ totalCoin | format }}</span>
-          </div>
-          <slot v-else name="right"></slot>
+          <slot name="right"></slot>
         </div>
       </div>
     </div>
@@ -38,9 +29,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
+import { Icon } from "vant";
 @Component({
-  components: {}
+  components: { Icon }
 })
 export default class NavBar extends Vue {
   @Prop({ default: false })
@@ -48,19 +39,21 @@ export default class NavBar extends Vue {
   @Prop({ default: false })
   private border?: boolean;
   @Prop({ default: "" })
-  private leftType?: string;
+  private leftType?: string; // cross --> close
   @Prop({ default: false })
   private leftFork?: boolean;
   @Prop({ default: false })
   private flowLayout?: boolean;
   @Prop({ default: false })
   private backWhite?: boolean;
-  @Prop({ default: false })
-  private showCoin?: boolean;
   @Prop({ default: "" })
   private title?: string;
-  @Prop({ default: "" })
+  @Prop({ default: "#000" })
   private titleColor?: string;
+
+  get leftIconName() {
+    return this.leftType === "close" ? "cross" : "down";
+  }
 
   get slotMidShow() {
     return this.$slots.mid;

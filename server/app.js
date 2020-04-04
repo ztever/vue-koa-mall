@@ -37,12 +37,24 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-// app.use(tokenCheck);
 app.use(async (ctx, next) => {
   try {
-    await tokenCheck(ctx);
-    await next();
+    const result = await tokenCheck(ctx);
+    if (result && result.name === "TokenExpiredError") {
+      ctx.body = {
+        code: 20006,
+        message: "token过期"
+      };
+    } else if (result && result.name === "JsonWebTokenError") {
+      ctx.body = {
+        code: 20007,
+        message: "token must be provided"
+      };
+    } else {
+      await next();
+    }
   } catch (error) {
+    // ctx.body = {};
     return Promise.reject(error);
   }
 });
@@ -57,20 +69,6 @@ app.use(async (ctx, next) => {
 app.use(auth.routes(), auth.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 
-// Custom 401 handling if you don't want to expose koa-jwt errors to users
-// app.use(function(ctx, next) {
-//   console.log("ctx koa", ctx.header);
-//   return next().catch(err => {
-//     console.log("error koa", error);
-//     if (401 == err.status) {
-//       ctx.status = 401;
-//       ctx.body = "Protected resource, use Authorization header to get access\n";
-//     } else {
-//       throw err;
-//     }
-//   });
-// });
-
 // error-handling
 app.on("error", (err, ctx) => {
   console.error("server error", err);
@@ -78,12 +76,6 @@ app.on("error", (err, ctx) => {
   //   code: 500,
   //   message: "服务错误"
   // };
-  if (err.name === "TokenExpiredError") {
-    ctx.body = {
-      code: 500,
-      message: "token过期"
-    };
-  }
 });
 
 module.exports = app;

@@ -1,5 +1,11 @@
 <template>
   <div id="register-user">
+    <NavBar
+      leftType="close"
+      transparent="true"
+      title="注册新用户"
+      @clickLeft="clickBack"
+    ></NavBar>
     <Form @submit="onSubmit">
       <Field
         v-model="username"
@@ -49,13 +55,16 @@ import { Component, Vue } from "vue-property-decorator";
 import { Form, Button, Field, RadioGroup, Radio } from "vant";
 import { Action } from "vuex-class";
 import { REGISTER_USER } from "@/store/constants/user";
+import NavBar from "@/components/NavBar/NavBar.vue";
+
 @Component({
   components: {
     Form,
     Button,
     Field,
     RadioGroup,
-    Radio
+    Radio,
+    NavBar
   }
 })
 export default class RegisterUser extends Vue {
@@ -79,6 +88,9 @@ export default class RegisterUser extends Vue {
       //
     }
   }
+  private clickBack() {
+    this.$router.go(-1);
+  }
 }
 </script>
 
@@ -86,8 +98,11 @@ export default class RegisterUser extends Vue {
 #register-user {
   width: 100%;
   height: 100%;
-  padding: 80px 7% 0;
-  box-sizing: border-box;
+
+  .van-form {
+    padding: 20px 7% 0;
+    box-sizing: border-box;
+  }
   .icon {
     width: 50px;
   }

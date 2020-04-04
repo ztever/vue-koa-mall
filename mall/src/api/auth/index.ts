@@ -1,5 +1,5 @@
 import { request } from "../base";
-import { USER_LOGIN, USER_REGISTER } from "../constants";
+import { USER_LOGIN, USER_REGISTER, UPDATE_USER } from "../constants";
 /**
  * 用户登录
  * @param user_name
@@ -33,6 +33,24 @@ export const user_login = async (params: UserLoginParams) => {
 export const user_register = async (params: RegisterUser) => {
   try {
     const result = await request.post(USER_REGISTER, params);
+    return result;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+/**
+ * 修改用户信息
+ * @param params
+ */
+
+interface UpdateUser {
+  user_name: string;
+  icon: string;
+}
+
+export const update_user = async (params: UpdateUser) => {
+  try {
+    const result = await request.put(UPDATE_USER, params);
     return result;
   } catch (error) {
     return Promise.reject(error);

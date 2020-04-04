@@ -1,9 +1,10 @@
 import { Toast } from "vant";
-import { store } from "@/main";
+import { store, router } from "@/main";
 import { GETTER_TOKEN } from "@/store/constants/user";
 const handleRequest = (config: any) => {
   // 如果有token，带上token
   const token = store.getters[GETTER_TOKEN];
+  console.log("token", token);
   if (token) {
     config.headers["token"] = token;
   }
@@ -18,17 +19,20 @@ export const responseResolve = (response: any) => {
     if (code === 200) {
       return data.data;
     } else {
-      // Toast.fail(`${meta.message}`);
-      // if (meta.code === 20001) {
-      //   setTimeout(() => {
-      //     location.href = "/login";
-      //   }, 1000);
-      //   Toast.fail("账号信息过期了，请重新登陆");
-      // } else {
-      //   Toast.fail(`${meta.message}`);
-      // }
-      if (code === 205) {
-        Toast.fail(data.message);
+      Toast.fail(`${data.message}`);
+      if (code === 20006) {
+        // setTimeout(() => {
+        //   // const href = location.hash ? "/#/login" : "/login";
+        //   // location.href = href;
+
+        // }, 1000);
+        router.replace({
+          name: "login",
+          query: {
+            routerTransition: "up"
+          }
+        });
+        Toast.fail("账号信息过期了，请重新登陆");
       }
       return Promise.reject(response);
     }
@@ -38,6 +42,7 @@ export const responseResolve = (response: any) => {
 };
 
 export const errorResolve = (error: any) => {
+  console.log("errorResolve====>", error.message, error.error);
   Toast.fail(`${error.message}`);
   return Promise.reject(error);
 };
