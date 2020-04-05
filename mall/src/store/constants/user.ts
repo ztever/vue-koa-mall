@@ -5,3 +5,5 @@ export const REGISTER_USER = "REGISTER_USER";
 export const GETTER_TOKEN = "GETTER_TOKEN";
 export const GETTER_USER_INFO = "GETTER_USER_INFO";
 export const PUT_USER_INFO = "PUT_USER_INFO";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const DELETE_USER_INFO = "DELETE_USER_INFO";

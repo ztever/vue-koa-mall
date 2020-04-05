@@ -11,7 +11,7 @@
         <!-- Left -->
         <div href="javascript:;" class="slot-left slot" @click="clickLeft">
           <slot v-if="!leftType" name="left"></slot>
-          <Icon :name="leftIconName" :class="leftType" />
+          <Icon v-else :name="leftIconName" :class="leftType" />
         </div>
         <!-- Mid -->
         <div class="slot-mid slot" @click="clickMid">
@@ -39,9 +39,7 @@ export default class NavBar extends Vue {
   @Prop({ default: false })
   private border?: boolean;
   @Prop({ default: "" })
-  private leftType?: string; // cross --> close
-  @Prop({ default: false })
-  private leftFork?: boolean;
+  private leftType?: string;
   @Prop({ default: false })
   private flowLayout?: boolean;
   @Prop({ default: false })

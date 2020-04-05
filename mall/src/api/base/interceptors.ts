@@ -4,7 +4,6 @@ import { GETTER_TOKEN } from "@/store/constants/user";
 const handleRequest = (config: any) => {
   // 如果有token，带上token
   const token = store.getters[GETTER_TOKEN];
-  console.log("token", token);
   if (token) {
     config.headers["token"] = token;
   }
@@ -42,7 +41,6 @@ export const responseResolve = (response: any) => {
 };
 
 export const errorResolve = (error: any) => {
-  console.log("errorResolve====>", error.message, error.error);
   Toast.fail(`${error.message}`);
   return Promise.reject(error);
 };

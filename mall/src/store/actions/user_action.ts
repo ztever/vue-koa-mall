@@ -3,9 +3,16 @@ import {
   UPDATE_USER_INFO,
   REGISTER_USER,
   PUT_USER_INFO,
-  UPDATE_TOKEN
+  UPDATE_TOKEN,
+  LOGOUT_USER,
+  DELETE_USER_INFO
 } from "../constants/user";
-import { user_login, user_register, update_user } from "@/api/auth/index";
+import {
+  user_login,
+  user_register,
+  update_user,
+  logout_user
+} from "@/api/auth/index";
 import { router } from "@/main";
 export default {
   async [USER_LOGIN_ACTION]({ commit }: any, payLoad: any) {
@@ -43,6 +50,20 @@ export default {
     try {
       await update_user(payLoad);
       await commit(UPDATE_USER_INFO, payLoad);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async [LOGOUT_USER]({ commit }: any) {
+    try {
+      await logout_user();
+      await commit(DELETE_USER_INFO);
+      router.replace({
+        name: "login",
+        query: {
+          routerTransition: "up"
+        }
+      });
     } catch (error) {
       return Promise.reject(error);
     }
