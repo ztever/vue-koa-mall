@@ -4,5 +4,4 @@ export const UPDATE_USER = "/updateUser";
 export const USER_LOGOUT = "/logout";
 
 // captcha
-
 export const GET_CAPTCHA = "/captcha";

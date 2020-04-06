@@ -49,7 +49,7 @@
         :error-message="passwordErrMsg"
         @click="clickEye"
       />
-      <Field name="icon" placeholder="请输入验证码" label="图像">
+      <Field name="icon" label="图像">
         <template #input>
           <RadioGroup v-model="icon" direction="horizontal">
             <Radio v-for="(item, index) in iconList" :key="index" :name="item"
@@ -62,15 +62,21 @@
         v-if="svgData"
         name="verify_code"
         label="验证码"
+        class="verify-code"
+        placeholder="请输入验证码"
+        v-model="verifyCode"
+        :border="false"
+        @click="clickCaptcha"
         :rules="[
           {
             required: true,
-            message: '请填写验证码'
+            message: '请填写正确的验证码',
+            validator: captchaValidator
           }
         ]"
       >
         <template #button>
-          <Button style="border:none" size="small" v-model="verifyCode">
+          <Button style="border:none" size="small">
             <div v-html="svgData"></div>
           </Button>
         </template>
@@ -91,6 +97,7 @@ import NavBar from "@/components/NavBar/NavBar.vue";
 import { get_captcha } from "@/api/captcha";
 
 @Component({
+  name: "registeruser",
   components: {
     Form,
     Button,
@@ -122,8 +129,11 @@ export default class RegisterUser extends Vue {
   private passwordType = "password";
   private passwordIcon = "eye-o";
   private svgData = "";
+  private captchaText = "";
+  private captchaUUID = "";
   private async onSubmit(values: any) {
     try {
+      values.uuid = this.captchaUUID;
       await this.registerUser(values);
     } catch (error) {
       //
@@ -148,12 +158,15 @@ export default class RegisterUser extends Vue {
       return true;
     }
   }
-
+  private captchaValidator(val: any) {
+    return val.toLowerCase() === this.captchaText;
+  }
   private async getCaptcha() {
     try {
-      const result = await get_captcha();
-      this.svgData = result.data;
-      console.log("this.svgData", this.svgData);
+      const result: any = await get_captcha();
+      this.svgData = result.svg;
+      this.captchaText = result.text;
+      this.captchaUUID = result.uuid;
     } catch (error) {
       //
     }
@@ -164,6 +177,12 @@ export default class RegisterUser extends Vue {
         this.passwordType === "password" ? "text" : "password";
       this.passwordIcon =
         this.passwordIcon === "closed-eye" ? "eye-o" : "closed-eye";
+    }
+  }
+  private clickCaptcha(e: any) {
+    e.preventDefault();
+    if (e && e.target && e.target.className.includes("van-button")) {
+      this.getCaptcha();
     }
   }
   private clickBack() {
@@ -184,6 +203,13 @@ export default class RegisterUser extends Vue {
   .van-form {
     padding: 20px 7% 0;
     box-sizing: border-box;
+    .verify-code {
+      min-height: 80px;
+      margin-bottom: 16px;
+      .van-button {
+        height: 50px;
+      }
+    }
   }
   .icon {
     width: 50px;

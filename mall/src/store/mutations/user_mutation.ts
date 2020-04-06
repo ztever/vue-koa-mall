@@ -18,14 +18,12 @@ export default {
   },
   // eslint-disable-next-line
   [DELETE_USER_INFO](state: any) {
-    state = {
-      token: "",
-      user_info: {
-        user_name: "",
-        nick_name: "",
-        icon: "",
-        telephone: 0
-      }
+    state.token = "";
+    state.user_info = {
+      user_name: "",
+      nick_name: "",
+      icon: "",
+      telephone: 0
     };
   }
 };

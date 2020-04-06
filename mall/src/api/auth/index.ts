@@ -5,23 +5,13 @@ import {
   UPDATE_USER,
   USER_LOGOUT
 } from "../constants";
+import { UserLoginParams, RegisterUserType, UpdateUser } from "./user";
 /**
  * 用户登录
  * @param user_name
  * @param password
  */
 
-interface UserLoginParams {
-  user_name: string;
-  password: string;
-}
-
-interface RegisterUser {
-  user_name: string;
-  password: string;
-  icon: string;
-  telephone: string;
-}
 export const user_login = async (params: UserLoginParams) => {
   try {
     const result = await request.post(USER_LOGIN, params);
@@ -35,7 +25,7 @@ export const user_login = async (params: UserLoginParams) => {
  * @param params
  */
 
-export const user_register = async (params: RegisterUser) => {
+export const user_register = async (params: RegisterUserType) => {
   try {
     const result = await request.post(USER_REGISTER, params);
     return result;
@@ -47,11 +37,6 @@ export const user_register = async (params: RegisterUser) => {
  * 修改用户信息
  * @param params
  */
-
-interface UpdateUser {
-  user_name: string;
-  icon: string;
-}
 
 export const update_user = async (params: UpdateUser) => {
   try {

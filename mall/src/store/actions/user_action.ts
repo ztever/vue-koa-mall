@@ -14,6 +14,8 @@ import {
   logout_user
 } from "@/api/auth/index";
 import { router } from "@/main";
+import { RegisterUserType } from "@/api/auth/user";
+
 export default {
   async [USER_LOGIN_ACTION]({ commit }: any, payLoad: any) {
     try {
@@ -32,7 +34,7 @@ export default {
     }
   },
   // eslint-disable-next-line
-  async [REGISTER_USER]({}: any, payLoad: any) {
+  async [REGISTER_USER]({}: any, payLoad: RegisterUserType) {
     try {
       await user_register(payLoad);
       //注册成功，跳转到登录页面

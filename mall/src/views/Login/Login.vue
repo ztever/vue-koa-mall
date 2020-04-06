@@ -39,6 +39,7 @@ import { USER_LOGIN_ACTION } from "@/store/constants/user";
 import { Form, Button, Field } from "vant";
 
 @Component({
+  name: "login",
   components: {
     Form,
     Field,

@@ -2,6 +2,7 @@
   <div id="main">
     <div v-if="code" v-html="code"></div>
     <div @click="getCaptcha">get_captcha</div>
+    <br />
   </div>
 </template>
 
@@ -13,11 +14,11 @@ import { get_captcha } from "@/api/captcha";
 })
 export default class Main extends Vue {
   private code = "";
+
   private async getCaptcha() {
     try {
-      const result = await get_captcha();
-      console.log("result", result);
-      this.code = result.data;
+      const result: any = await get_captcha();
+      this.code = result.svg;
     } catch (error) {
       //
     }

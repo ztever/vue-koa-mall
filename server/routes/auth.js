@@ -72,7 +72,19 @@ router.post("/login", async (ctx, next) => {
  */
 router.post("/registerUser", async (ctx, next) => {
   try {
-    const { user_name, telephone, password, icon } = ctx.request.body;
+    const {
+      user_name,
+      telephone,
+      password,
+      icon,
+      uuid,
+      verify_code,
+    } = ctx.request.body;
+
+    if (verify_code !== ctx.session[uuid]) {
+      ctx.body = { code: 10003, data: null, message: "验证码过期了" };
+      return;
+    }
     const hashPwd = getHashPwd(password);
     const user = await findUser(user_name, telephone, hashPwd);
 

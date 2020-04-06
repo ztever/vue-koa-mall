@@ -9,7 +9,7 @@
       @leave="leave"
       @after-leave="afterleave"
     >
-      <keep-alive>
+      <keep-alive :exclude="excludeRoute">
         <router-view />
       </keep-alive>
     </transition>
@@ -28,7 +28,7 @@ export default class App extends Vue {
   private enterTransitionName: string = "";
   private leaveTransitionName: string = "";
   private flipName: string = "";
-
+  private excludeRoute = ["login", "registeruser"];
   private animateFn(
     dom: any,
     args: any,
