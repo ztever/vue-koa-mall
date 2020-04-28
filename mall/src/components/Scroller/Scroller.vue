@@ -57,7 +57,7 @@ export default class Scroller extends Vue {
   @Prop({ default: "You've reached the end" })
   private endedText?: string;
   @Prop({
-    default: require("@/assets/icons/scroll/loading_3.gif")
+    default: require("@/assets/icons/scroll/loading3.gif")
   })
   private lodingIcon?: string;
   @Prop({
@@ -180,6 +180,7 @@ export default class Scroller extends Vue {
 .scroll-container {
   // 去除滚动条
   width: 110%;
+  box-sizing: border-box;
   padding-right: 10%;
   position: absolute;
   top: 0;

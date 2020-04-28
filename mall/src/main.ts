@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import Navigation from "@/plugins/navigation/index";
 import "@/assets/font/iconfont.css";
+// import "@/utils/rem";
 
 Vue.use(Navigation, { router });
 

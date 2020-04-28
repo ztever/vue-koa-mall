@@ -19,7 +19,7 @@ export const responseResolve = (response: any) => {
       return data.data;
     } else {
       Toast.fail(`${data.message}`);
-      if (code === 20006) {
+      if (code === 20006 || code === 20007) {
         // setTimeout(() => {
         //   // const href = location.hash ? "/#/login" : "/login";
         //   // location.href = href;

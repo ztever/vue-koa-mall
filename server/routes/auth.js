@@ -55,9 +55,9 @@ router.post("/login", async (ctx, next) => {
           user_name,
           nick_name: item.nick_name,
           icon: item.icon,
-          telephone: item.telephone,
+          telephone: item.telephone
         },
-        message: "",
+        message: ""
       };
       //写入token到数据库
       const upSql = `UPDATE user_info SET token = '${token}' WHERE id = '${item.id}'`;
@@ -78,7 +78,7 @@ router.post("/registerUser", async (ctx, next) => {
       password,
       icon,
       uuid,
-      verify_code,
+      verify_code
     } = ctx.request.body;
 
     if (verify_code !== ctx.session[uuid]) {
