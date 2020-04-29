@@ -1,5 +1,5 @@
 <template>
-  <div class="search-input">
+  <div class="search-input" :class="{ background }">
     <span class="left-icon"></span>
     <div class="search-filed">
       <span class="jd-icon"></span>
@@ -18,13 +18,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { Icon } from "vant";
 
 @Component({
   components: { Icon }
 })
 export default class SearchFiled extends Vue {
+  @Prop()
+  private background: boolean = false;
   private inputText = "";
 }
 </script>
@@ -32,10 +34,16 @@ export default class SearchFiled extends Vue {
 <style scoped lang="scss">
 .search-input {
   @include flex-row-center;
-  // background-color: #e43130;
   width: 100%;
   height: 44px;
   z-index: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  &.background {
+    background-color: #e43130;
+  }
   .left-icon {
     margin: 10px 16px;
     width: 20px;

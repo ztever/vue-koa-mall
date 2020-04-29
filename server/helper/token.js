@@ -15,7 +15,7 @@ const unCheckPath = ["/login", "/registerUser", "/captcha", "/getsms"]; //不需
 const createToken = (user_name, id, nick_name) => {
   let content = { user_name, id, nick_name }; // 要生成token的主题信息
   return jwt.sign(content, secretkey, {
-    expiresIn: 60 * 60, // 1小时过期
+    expiresIn: 60 * 60 * 24 // 1天过期
   });
 };
 //解析token
@@ -44,5 +44,5 @@ const tokenCheck = async (ctx) => {
 module.exports = {
   createToken,
   secretkey,
-  tokenCheck,
+  tokenCheck
 };

@@ -10,4 +10,8 @@ import { Component, Vue } from "vue-property-decorator";
 export default class List extends Vue {}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+#list {
+  flex: 1;
+}
+</style>

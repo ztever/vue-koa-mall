@@ -8,5 +8,6 @@ export const GET_CAPTCHA = "/captcha";
 
 // home
 export const GET_BANNER = "/crauser";
-export const GET_NAV_LIST = "navlist";
-export const GET_JD_HOME = "jdhome";
+export const GET_NAV_LIST = "/navlist";
+export const GET_JD_HOME = "/jdhome";
+export const GET_RECOMMEND_LIST = "/getrecommend";

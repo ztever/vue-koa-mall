@@ -12,4 +12,8 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Cart extends Vue {}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+#cart {
+  flex: 1;
+}
+</style>

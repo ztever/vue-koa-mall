@@ -1,10 +1,10 @@
 <template>
   <section id="main">
-    <div class="slider-bg"></div>
-    <SearchFiled />
-    <Scroller>
+    <SearchFiled :background="background" />
+    <Scroller @scrollTop="scrollTopEvent" :loadFn="getData">
       <MainTop></MainTop>
       <JdHome></JdHome>
+      <RecommendList :recommendList="recommendList" />
     </Scroller>
   </section>
 </template>
@@ -13,13 +13,41 @@
 import { Component, Vue } from "vue-property-decorator";
 import Scroller from "@/components/Scroller/Scroller.vue";
 import SearchFiled from "./SearchFiled/SearchFiled.vue";
-
 import MainTop from "./MainTop/MainTop.vue";
 import JdHome from "./JdHome/JdHome.vue";
+import RecommendList from "./RecommendList/RecommendList.vue";
+import { get_recommend_list } from "@/api/home/home";
 @Component({
-  components: { Scroller, SearchFiled, MainTop, JdHome }
+  components: { Scroller, SearchFiled, MainTop, JdHome, RecommendList }
 })
-export default class Main extends Vue {}
+export default class Main extends Vue {
+  private background: boolean = false;
+  private recommendList: any = [];
+  private offset: number = 0;
+
+  private scrollTopEvent(value: number) {
+    this.background = value > 30 ? true : false;
+  }
+
+  private async getData(done?: any) {
+    try {
+      const result: any = await get_recommend_list(this.offset);
+      if (this.offset === 0) {
+        this.recommendList = result.data;
+      } else {
+        this.recommendList = [...this.recommendList, ...result.data];
+      }
+      this.offset++;
+      this.offset >= result.totalPage ? done(true) : done();
+    } catch (error) {
+      //
+    }
+  }
+
+  private async mounted() {
+    this.getData();
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -27,16 +55,6 @@ export default class Main extends Vue {}
   flex: 1;
   width: 100%;
   @include flex-column-center;
-  .slider-bg {
-    background-image: linear-gradient(0deg, #f1503b, #c82519 50%);
-    width: 150%;
-    position: absolute;
-    left: -25%;
-    top: 0;
-    height: 150px;
-    border-bottom-left-radius: 100%;
-    z-index: 0;
-    border-bottom-right-radius: 100%;
-  }
+  touch-action: none;
 }
 </style>

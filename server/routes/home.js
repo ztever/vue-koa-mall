@@ -52,4 +52,31 @@ router.get("/jdhome", async (ctx, next) => {
   }
 });
 
+/**
+ * 获取推荐
+ */
+router.post("/getrecommend", async (ctx, next) => {
+  try {
+    //写入token到数据库
+    const { limit, offset } = ctx.request.body;
+    const sqlcoutn = `select count(*) from recommend_for_you`;
+    const count = await db(sqlcoutn);
+    const totalPage = Math.ceil(count[0]["count(*)"] / 10);
+    const sql = `SELECT * from recommend_for_you order by id asc limit ${limit} offset ${
+      offset * limit
+    }`;
+    const data = await db(sql);
+    ctx.body = {
+      code: 200,
+      data: {
+        data,
+        totalPage
+      }
+    };
+  } catch (err) {
+    console.log("err", err);
+    ctx.body = { code: 400, data: null, message: "获取推荐数据失败" };
+  }
+});
+
 module.exports = router;

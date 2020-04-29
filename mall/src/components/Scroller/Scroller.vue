@@ -86,9 +86,10 @@ export default class Scroller extends Vue {
   }
   private touchMoveEvent(e: any) {
     const scrollTop = this.container.scrollTop;
-    const pageHeight = e.target.getBoundingClientRect().height;
+    const pageHeight = e.currentTarget.getBoundingClientRect().height;
     const nowY = e.touches[0].clientY;
     const offsetY = nowY - this.moveY;
+    this.$emit("scrollTop", scrollTop);
     if (this.startOffsetY === 0) {
       this.startOffsetY = offsetY;
       this.startOffsetX = e.touches[0].clientX - this.startOffsetX;
@@ -97,13 +98,16 @@ export default class Scroller extends Vue {
     if (Math.abs(this.startOffsetY) >= Math.abs(this.startOffsetX)) {
       e.stopPropagation();
     } else {
-      return;
+      return true;
     }
     // 判断是否是下拉刷新
     if (scrollTop < 1) {
       if (offsetY >= 0) {
         //下啦刷新的 时候阻止默认滚动
         e.preventDefault();
+        if (!this.pullFn) {
+          return true;
+        }
         //下拉的距离大于100后，距离加大0.2，避免下拉的太多
         this.translateY < 100
           ? (this.translateY += offsetY)
@@ -176,6 +180,7 @@ export default class Scroller extends Vue {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  touch-action: none;
 }
 .scroll-container {
   // 去除滚动条
@@ -185,7 +190,7 @@ export default class Scroller extends Vue {
   position: absolute;
   top: 0;
   bottom: 0;
-  overflow: hidden;
+  overflow-x: hidden;
   overscroll-behavior: none;
   overflow-y: auto;
   scroll-behavior: smooth;

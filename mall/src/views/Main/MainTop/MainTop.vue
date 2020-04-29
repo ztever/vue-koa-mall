@@ -1,5 +1,6 @@
 <template>
   <section id="main-top">
+    <div class="slider-bg"></div>
     <!-- 轮播 -->
     <Swipe :autoplay="3000" class="banner-swiper" v-if="crauserList.length > 0">
       <SwipeItem v-for="item in crauserList" :key="item.id">
@@ -34,6 +35,18 @@ export default class MainTop extends Vue {
 #main-top {
   width: 100%;
   overflow: hidden;
+  padding-top: 52px;
+  .slider-bg {
+    background-image: linear-gradient(0deg, #f1503b, #c82519 50%);
+    width: 150%;
+    position: absolute;
+    left: -25%;
+    top: 0;
+    height: 150px;
+    border-bottom-left-radius: 100%;
+    z-index: 0;
+    border-bottom-right-radius: 100%;
+  }
   .banner-swiper {
     padding-top: 8px;
     .van-swipe-item {
