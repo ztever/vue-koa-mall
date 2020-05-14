@@ -10,7 +10,14 @@
 
 const jwt = require("jsonwebtoken");
 const secretkey = "jswtoken";
-const unCheckPath = ["/login", "/registerUser", "/captcha", "/getsms"]; //不需要验证token的接口
+const unCheckPath = [
+  "/login",
+  "/registerUser",
+  "/captcha",
+  "/getsms",
+  "/upload",
+  "/uploadformdata"
+]; //不需要验证token的接口
 //生成token
 const createToken = (user_name, id, nick_name) => {
   let content = { user_name, id, nick_name }; // 要生成token的主题信息

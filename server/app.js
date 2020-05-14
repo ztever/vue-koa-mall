@@ -3,7 +3,7 @@ const app = new Koa();
 const views = require("koa-views");
 const json = require("koa-json");
 const onerror = require("koa-onerror");
-const bodyparser = require("koa-bodyparser");
+const bodyparser = require("koa-body");
 const logger = require("koa-logger");
 // const koaJwt = require("koa-jwt"); //路由权限控制
 const { tokenCheck } = require("./helper/token");
@@ -12,7 +12,7 @@ const users = require("./routes/users");
 const captcha = require("./routes/captcha");
 const home = require("./routes/home");
 const setSession = require("./helper/session");
-
+const upload = require("./routes/upload");
 // error handler
 onerror(app);
 // session
@@ -22,7 +22,8 @@ app.use(setSession(app));
 // middlewares
 app.use(
   bodyparser({
-    enableTypes: ["json", "form", "text"]
+    // enableTypes: ["json", "form", "text"],
+    multipart: true
   })
 );
 app.use(json());
@@ -76,6 +77,7 @@ app.use(home.routes(), home.allowedMethods());
 app.use(auth.routes(), auth.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(captcha.routes(), captcha.allowedMethods());
+app.use(upload.routes(), upload.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {

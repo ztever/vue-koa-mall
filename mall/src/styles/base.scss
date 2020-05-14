@@ -12,6 +12,10 @@ body,
   background: #f6f6f6;
 }
 
+body {
+  @include ios-padding-bottom;
+}
+
 .animated {
   animation-duration: 250ms;
   animation-fill-mode: forwards;

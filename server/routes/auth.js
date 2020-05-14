@@ -41,7 +41,7 @@ const findUser = async (user_name, telephone, password) => {
 router.post("/login", async (ctx, next) => {
   try {
     const { user_name, password } = ctx.request.body;
-    const hashPwd = getHashPwd(password);
+    const hashPwd = getHashPwd(String(password));
     const user = await findUser(user_name, user_name, hashPwd);
     const [item] = user;
     if (!item) {
@@ -64,6 +64,7 @@ router.post("/login", async (ctx, next) => {
       db(upSql);
     }
   } catch (err) {
+    console.log(err);
     ctx.body = { code: 400, data: null, message: "登录失败，请重新操作" };
   }
 });

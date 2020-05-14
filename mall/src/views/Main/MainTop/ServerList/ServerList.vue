@@ -1,6 +1,6 @@
 <template>
   <!-- 入口 -->
-  <Swipe class="server-list" v-if="serverList.length > 0">
+  <Swipe class="server-list" v-if="serverList && serverList.length > 0">
     <SwipeItem>
       <div class="list-box">
         <a
@@ -41,7 +41,11 @@ import { get_nav_list } from "@/api/home/home";
 export default class ServerList extends Vue {
   private serverList: any = [];
   private async mounted() {
-    this.serverList = await get_nav_list();
+    try {
+      this.serverList = await get_nav_list();
+    } catch (error) {
+      console.log("this.serverList error", error);
+    }
   }
 }
 </script>

@@ -6,7 +6,7 @@
       src="https://m.360buyimg.com/mobilecms/s750x80_jfs/t1/104532/40/2146/24646/5dcc2957E83954979/5ec2bb870605dcb3.png!q70.jpg.dpg"
       alt=""
     />
-    <section v-if="dataList.length > 0" class="jd-home-box">
+    <section v-if="dataList && dataList.length > 0" class="jd-home-box">
       <div class="jd-home-container">
         <JdItem
           v-for="item in dataList.slice(0, 6)"
@@ -21,7 +21,7 @@
       src="https://m.360buyimg.com/mobilecms/s750x80_jfs/t1/103080/1/6315/23804/5df25d68E3eae6519/deef719dfdfe2844.png!q70.jpg.dpg"
       alt=""
     />
-    <section v-if="dataList.length > 0" class="jd-home-box">
+    <section v-if="dataList && dataList.length > 0" class="jd-home-box">
       <div class="jd-home-container">
         <JdItem
           v-for="item in dataList.slice(6)"

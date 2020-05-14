@@ -6,3 +6,5 @@ declare module "vue/types/vue" {
     $navigation: any;
   }
 }
+
+declare module "exif-js";
