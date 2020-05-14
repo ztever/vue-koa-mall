@@ -43,6 +43,7 @@ export default class List extends Vue {
         [$name] +
         '"; filename="profile_pic"' +
         crlf,
+      "Content-Type: image/jpeg" + crlf,
       crlf,
       [$content] + crlf,
       footer
