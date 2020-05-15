@@ -1,5 +1,5 @@
 export const getBase64 = (url: string) => {
-  return new Promise(async resolve => {
+  return new Promise(resolve => {
     try {
       //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
       const getBase64Image = (img: any, width?: any, height?: any) => {

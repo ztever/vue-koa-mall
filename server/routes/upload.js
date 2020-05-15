@@ -17,9 +17,7 @@ router.post("/upload", async (ctx, next) => {
     // 上传单个文件
     const file = ctx.request.files.profice_pic; // 获取上传文件
     // 创建可读流
-    console.log("ctx.request", ctx.request.files);
-
-    const reader = fs.createReadStream("" + file.path);
+    const reader = fs.createReadStream(file.path);
     const filePath =
       path.join(__dirname, "../static/upload") +
       `/${file.name.replace(".jpg", "")}${new Date().getTime()}.jpg`;
@@ -62,17 +60,14 @@ router.post("/uploadformdata", async (ctx, next) => {
   try {
     // 上传单个文件
     const file = ctx.request.files.profile_pic; // 获取上传文件
-    // 创建可读流
-
-    const reader = fs.createReadStream("" + file.path);
     const filePath =
       path.join(__dirname, "../static/upload") +
       `/${file.name.replace(".jpg", "")}${new Date().getTime()}.jpg`;
     const dirPath = path.join(__dirname, "../static/upload");
-
+    // 创建可读流
+    const reader = fs.createReadStream(file.path);
     if (!fs.existsSync(dirPath)) {
       //判断staic/upload文件夹是否存在，如果不存在就新建一个
-
       fs.mkdir(dirPath, { recursive: true }, (err) => {
         if (err) {
           console.log("err", err);

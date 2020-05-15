@@ -1,4 +1,5 @@
 import "whatwg-fetch";
+import axios from "axios";
 import { UPLOAD_FILE, UPLOAD_FORM_DATA } from "../constants";
 import { BASE_URL } from "@/config/config";
 /**
@@ -17,9 +18,9 @@ export const upload_file = (body: any) => {
  * @param body
  */
 export const form_upload = (headers: any, body: any) => {
-  fetch(BASE_URL + UPLOAD_FORM_DATA, {
-    method: "POST",
-    body,
+  axios.post(BASE_URL + UPLOAD_FORM_DATA, body, {
+    // method: "POST",
+
     headers
   });
 };

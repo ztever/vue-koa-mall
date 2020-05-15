@@ -8,3 +8,4 @@ declare module "vue/types/vue" {
 }
 
 declare module "exif-js";
+declare module "crypto-js";

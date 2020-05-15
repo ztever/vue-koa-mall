@@ -1,5 +1,24 @@
 import EXIF from "exif-js";
 /*
+ * 获取照片的元信息（拍摄方向）
+ * */
+
+const getPhotoOrientation: any = (img: any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      (async () => {
+        let result: any;
+        await EXIF.getData(img, function(this: any) {
+          result = EXIF.getTag(this, "Orientation");
+          resolve(result);
+        });
+      })();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+/*
  * 上传的文件对象 file文件对象，maxHeight文件的最大高度 maxWidth文件的最大宽度 quality代表质量 0.95的压缩比例与原始比例一致
  * file，文件
  * */
@@ -9,7 +28,7 @@ export const canvasCompress: any = (
   maxWidth: number = 2000,
   quality: number = 0.9
 ) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     try {
       const reader: any = new FileReader();
       reader.readAsDataURL(file);
@@ -93,6 +112,19 @@ export const canvasCompress: any = (
           // 图片压缩
           context.drawImage(img, 0, 0, targetWidth, targetHeight);
         }
+
+        // canvas.toBlob(
+        //   async (blob: any) => {
+        //     const buffer = await blob.arrayBuffer();
+        //     console.log("buffer", buffer);
+        //     resolve(blob);
+        //     // 成功之后删除创建出来的canvas元素
+        //     canvas = null;
+        //   }
+        //   // "multipart/form-data",
+        //   // quality
+        // );
+
         const dataUrl = canvas.toDataURL("image/jpeg", quality);
         resolve(dataUrl);
         // 成功之后删除创建出来的canvas元素
@@ -101,24 +133,6 @@ export const canvasCompress: any = (
     } catch (error) {
       reject(error);
       throw new Error(error);
-    }
-  });
-};
-
-/*
- * 获取照片的元信息（拍摄方向）
- * */
-
-const getPhotoOrientation: any = (img: any) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let result: any;
-      await EXIF.getData(img, function(this: any) {
-        result = EXIF.getTag(this, "Orientation");
-        resolve(result);
-      });
-    } catch (error) {
-      reject(error);
     }
   });
 };
@@ -134,4 +148,30 @@ export const dataURLtoFile = (dataurl: any, filename = "profile_pic") => {
     u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename, { type: mime });
+};
+
+export const binEncode = (data: string) => {
+  const binArray = [];
+  // eslint-disable-next-line
+  let datEncode = "";
+  const newData = data.split(",")[1];
+
+  for (let i = 0; i < newData.length; i++) {
+    binArray.push(newData[i].charCodeAt(0).toString(2));
+  }
+  function padding_left(s: any, c: any, n: any) {
+    if (!s || !c || s.length >= n) {
+      return s;
+    }
+    const max = (n - s.length) / c.length;
+    for (let i = 0; i < max; i++) {
+      s = c + s;
+    }
+    return s;
+  }
+  for (let j = 0; j < binArray.length; j++) {
+    const pad = padding_left(binArray[j], "0", 8);
+    datEncode += pad + " ";
+  }
+  return binArray;
 };

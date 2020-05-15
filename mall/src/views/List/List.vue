@@ -41,7 +41,7 @@ export default class List extends Vue {
       separator + crlf,
       'Content-Disposition: form-data; name="' +
         [$name] +
-        '"; filename="profile_pic"' +
+        '"; filename="profile"' +
         crlf,
       "Content-Type: image/jpeg" + crlf,
       crlf,

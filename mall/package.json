@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "crypto-js": "^4.0.0",
     "exif-js": "^2.3.0",
     "localforage": "^1.7.3",
     "postcss-px2rem": "^0.3.0",
@@ -23,6 +24,7 @@
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.46",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "@vue/cli-plugin-babel": "^4.2.0",
